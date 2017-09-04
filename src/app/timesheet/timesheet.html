@@ -1,0 +1,11 @@
+<div class="container">
+    <h3>Enter Timesheet</h3>
+    <p>
+        {{ vm.message }}
+    </p>
+    <ul>
+        <li ng-repeat="item in vm.recentTimesheets | orderBy: '-WeekEnding' ">
+            {{ item.WeekEnding }}
+        </li>
+    </ul>
+</div>

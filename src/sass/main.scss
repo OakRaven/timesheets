@@ -1,0 +1,17 @@
+/******************************************************************
+
+ Angular Boilderplate
+
+******************************************************************/
+
+@import "../../bower_components/bootstrap/themes/flatly.bootstrap.min";
+
+/* Partials */
+
+@import "partials/variables";
+
+/* Modules */
+
+@import "modules/main";
+@import "modules/home";
+@import "modules/rating";
