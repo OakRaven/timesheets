@@ -3,9 +3,26 @@
     <p>
         {{ vm.message }}
     </p>
-    <ul>
-        <li ng-repeat="item in vm.recentTimesheets | orderBy: '-WeekEnding' ">
-            {{ item.WeekEnding }}
-        </li>
-    </ul>
+    <table class="table table-bordered table-sm table-hover">
+        <thead class="thead-inverse">
+            <tr>
+                <th>Week Ending</th>
+                <th>Hours</th>
+                <th>Last Updated</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in vm.recentTimesheets | orderBy: '-WeekEnding' ">
+                <td>
+                    <a ng-href="#!/timesheet-details/{{ item.WeekEnding }}">
+                        {{ item.WeekEnding }}
+                    </a>
+                </td>
+                <td>{{ item.TotalHours }}</td>
+                <td></td>
+                <td>{{ item.Status }}</td>
+            </tr>
+        </tbody>
+    </table>
 </div>

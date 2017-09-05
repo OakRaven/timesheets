@@ -44,6 +44,11 @@
                 controller: "TimesheetController",
                 controllerAs: "vm"
             })
+            .when("/timesheet-details/:weekEnding", {
+                templateUrl: "app/timesheet-details/timesheet-details.html",
+                controller: "TimesheetDetailsController",
+                controllerAs: "vm"
+            })
             .otherwise({
                 redirectTo: '/404'
             });

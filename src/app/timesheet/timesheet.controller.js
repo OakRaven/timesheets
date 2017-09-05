@@ -25,7 +25,7 @@
                 if (err) {
                     vm.message = "LOADING ERROR: " + err;
                 } else {
-                    vm.recentTimesheets = data;
+                    vm.recentTimesheets = data.recentTimesheets;
                 }
             })
         }
