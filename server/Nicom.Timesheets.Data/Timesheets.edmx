@@ -1,0 +1,884 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="TimesheetDb.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Clients">
+          <Key>
+            <PropertyRef Name="clientId" />
+          </Key>
+          <Property Name="clientId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="clientName" Type="nvarchar" MaxLength="50" />
+          <Property Name="clientLongName" Type="nvarchar" MaxLength="100" />
+          <Property Name="invoiceType" Type="char" MaxLength="1" />
+          <Property Name="isBarterClient" Type="bit" Nullable="false" />
+          <Property Name="discountPercentage" Type="float" />
+          <Property Name="hasTimeBlock" Type="bit" Nullable="false" />
+          <Property Name="barterPercentage" Type="float" />
+          <Property Name="SalemanID" Type="int" />
+          <Property Name="salesman1ID" Type="int" />
+          <Property Name="salesmanPercentage" Type="float" />
+          <Property Name="salesman1Percentage" Type="float" />
+        </EntityType>
+        <EntityType Name="ClientUserRates">
+          <Key>
+            <PropertyRef Name="clientUserRateID" />
+          </Key>
+          <Property Name="clientUserRateID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="clientID" Type="int" Nullable="false" />
+          <Property Name="userID" Type="int" Nullable="false" />
+          <Property Name="userRate" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Projects">
+          <Key>
+            <PropertyRef Name="projectId" />
+          </Key>
+          <Property Name="projectId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="clientId" Type="int" />
+          <Property Name="projectName" Type="nvarchar" MaxLength="255" />
+          <Property Name="description" Type="ntext" />
+          <Property Name="purchaseOrderNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="estimatedEffort" Type="real" />
+          <Property Name="isBillable" Type="bit" Nullable="false" />
+          <Property Name="parentProjectId" Type="int" />
+          <Property Name="isFixedPrice" Type="bit" />
+          <Property Name="projectType" Type="int" />
+          <Property Name="isComplete" Type="bit" Nullable="false" />
+          <Property Name="barterPercentage" Type="float" />
+          <Property Name="fixedPriceAmount" Type="float" />
+          <Property Name="regularMaintenance" Type="bit" Nullable="false" />
+          <Property Name="SREDable" Type="bit" Nullable="false" />
+          <Property Name="isParentProject" Type="bit" Nullable="false" />
+          <Property Name="internalEstimatedHours" Type="real" />
+          <Property Name="projectedStartDate" Type="datetime" />
+          <Property Name="projectedEndDate" Type="datetime" />
+          <Property Name="actualStartDate" Type="datetime" />
+          <Property Name="actualEndDate" Type="datetime" />
+          <Property Name="dueDate" Type="datetime" />
+          <Property Name="priority" Type="int" Nullable="false" />
+          <Property Name="status" Type="int" Nullable="false" />
+          <Property Name="SalemanID" Type="int" />
+          <Property Name="salesman1ID" Type="int" />
+          <Property Name="salesmanPercentage" Type="float" />
+          <Property Name="salesman1Percentage" Type="float" />
+        </EntityType>
+        <EntityType Name="ProjectUserRates">
+          <Key>
+            <PropertyRef Name="projectUserRateID" />
+          </Key>
+          <Property Name="projectUserRateID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="projectID" Type="int" Nullable="false" />
+          <Property Name="userID" Type="int" Nullable="false" />
+          <Property Name="userRate" Type="float" Nullable="false" />
+          <Property Name="userPercentage" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Salesmen">
+          <Key>
+            <PropertyRef Name="salesmanId" />
+          </Key>
+          <Property Name="salesmanId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="salesmanName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="Tasks">
+          <Key>
+            <PropertyRef Name="taskId" />
+          </Key>
+          <Property Name="taskId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="projectId" Type="int" Nullable="false" />
+          <Property Name="userId" Type="int" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="remainingEffort" Type="float" Nullable="false" />
+          <Property Name="isProspect" Type="bit" Nullable="false" />
+          <Property Name="priority" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TimesheetActivities">
+          <Key>
+            <PropertyRef Name="ActivityName" />
+          </Key>
+          <Property Name="ActivityName" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TimesheetEntries">
+          <Key>
+            <PropertyRef Name="timesheetEntryId" />
+          </Key>
+          <Property Name="timesheetEntryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="timesheetId" Type="int" Nullable="false" />
+          <Property Name="clientId" Type="int" Nullable="false" />
+          <Property Name="projectId" Type="int" Nullable="false" />
+          <Property Name="description" Type="nvarchar" MaxLength="255" />
+          <Property Name="sat" Type="real" />
+          <Property Name="sun" Type="real" />
+          <Property Name="mon" Type="real" />
+          <Property Name="tue" Type="real" />
+          <Property Name="wed" Type="real" />
+          <Property Name="thu" Type="real" />
+          <Property Name="fri" Type="real" />
+          <Property Name="billable" Type="bit" Nullable="false" />
+          <Property Name="SchedAfterHours" Type="bit" />
+          <Property Name="UnschedAfterHours" Type="bit" />
+        </EntityType>
+        <EntityType Name="Timesheets">
+          <Key>
+            <PropertyRef Name="timesheetId" />
+          </Key>
+          <Property Name="timesheetId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="weekStartingDate" Type="datetime" />
+          <Property Name="weekEndingDate" Type="datetime" />
+          <Property Name="user" Type="nvarchar" MaxLength="50" />
+          <Property Name="submitted" Type="bit" Nullable="false" />
+          <Property Name="userId" Type="int" />
+          <Property Name="notes" Type="text" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="firstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="lastName" Type="nvarchar" MaxLength="50" />
+          <Property Name="emailAddress" Type="nvarchar" MaxLength="255" />
+          <Property Name="isActive" Type="bit" Nullable="false" />
+          <Property Name="loginName" Type="nvarchar" MaxLength="255" />
+          <Property Name="isAdministrator" Type="bit" Nullable="false" />
+          <Property Name="standardRate" Type="float" Nullable="false" />
+          <Property Name="hoursPerWeek" Type="float" Nullable="false" />
+          <Property Name="plannedBillUtilPct" Type="float" />
+          <Property Name="includeUtilization" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserTasks">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="ProjectId" Type="int" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="DueDate" Type="datetime" />
+          <Property Name="Priority" Type="int" Nullable="false" />
+          <Property Name="Status" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_ClientUserRates_Clients">
+          <End Role="Clients" Type="Self.Clients" Multiplicity="1" />
+          <End Role="ClientUserRates" Type="Self.ClientUserRates" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="clientId" />
+            </Principal>
+            <Dependent Role="ClientUserRates">
+              <PropertyRef Name="clientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClientUserRates_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="ClientUserRates" Type="Self.ClientUserRates" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="ClientUserRates">
+              <PropertyRef Name="userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Projects_Clients">
+          <End Role="Clients" Type="Self.Clients" Multiplicity="0..1" />
+          <End Role="Projects" Type="Self.Projects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="clientId" />
+            </Principal>
+            <Dependent Role="Projects">
+              <PropertyRef Name="clientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjectUserRates_Projects">
+          <End Role="Projects" Type="Self.Projects" Multiplicity="1" />
+          <End Role="ProjectUserRates" Type="Self.ProjectUserRates" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects">
+              <PropertyRef Name="projectId" />
+            </Principal>
+            <Dependent Role="ProjectUserRates">
+              <PropertyRef Name="projectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjectUserRates_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="ProjectUserRates" Type="Self.ProjectUserRates" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="ProjectUserRates">
+              <PropertyRef Name="userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TimesheetEntries_Projects">
+          <End Role="Projects" Type="Self.Projects" Multiplicity="1" />
+          <End Role="TimesheetEntries" Type="Self.TimesheetEntries" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects">
+              <PropertyRef Name="projectId" />
+            </Principal>
+            <Dependent Role="TimesheetEntries">
+              <PropertyRef Name="projectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TimesheetEntries_Timesheets">
+          <End Role="Timesheets" Type="Self.Timesheets" Multiplicity="1" />
+          <End Role="TimesheetEntries" Type="Self.TimesheetEntries" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Timesheets">
+              <PropertyRef Name="timesheetId" />
+            </Principal>
+            <Dependent Role="TimesheetEntries">
+              <PropertyRef Name="timesheetId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Timesheets_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Timesheets" Type="Self.Timesheets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="Timesheets">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserTasks_Projects">
+          <End Role="Projects" Type="Self.Projects" Multiplicity="1" />
+          <End Role="UserTasks" Type="Self.UserTasks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects">
+              <PropertyRef Name="projectId" />
+            </Principal>
+            <Dependent Role="UserTasks">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserTasks_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="UserTasks" Type="Self.UserTasks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="UserTasks">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TimesheetDbStoreContainer">
+          <EntitySet Name="Clients" EntityType="Self.Clients" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ClientUserRates" EntityType="Self.ClientUserRates" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Projects" EntityType="Self.Projects" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProjectUserRates" EntityType="Self.ProjectUserRates" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Salesmen" EntityType="Self.Salesmen" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tasks" EntityType="Self.Tasks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TimesheetActivities" EntityType="Self.TimesheetActivities" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TimesheetEntries" EntityType="Self.TimesheetEntries" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Timesheets" EntityType="Self.Timesheets" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserTasks" EntityType="Self.UserTasks" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ClientUserRates_Clients" Association="Self.FK_ClientUserRates_Clients">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="ClientUserRates" EntitySet="ClientUserRates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClientUserRates_Users" Association="Self.FK_ClientUserRates_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="ClientUserRates" EntitySet="ClientUserRates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Projects_Clients" Association="Self.FK_Projects_Clients">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="Projects" EntitySet="Projects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectUserRates_Projects" Association="Self.FK_ProjectUserRates_Projects">
+            <End Role="Projects" EntitySet="Projects" />
+            <End Role="ProjectUserRates" EntitySet="ProjectUserRates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectUserRates_Users" Association="Self.FK_ProjectUserRates_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="ProjectUserRates" EntitySet="ProjectUserRates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TimesheetEntries_Projects" Association="Self.FK_TimesheetEntries_Projects">
+            <End Role="Projects" EntitySet="Projects" />
+            <End Role="TimesheetEntries" EntitySet="TimesheetEntries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TimesheetEntries_Timesheets" Association="Self.FK_TimesheetEntries_Timesheets">
+            <End Role="Timesheets" EntitySet="Timesheets" />
+            <End Role="TimesheetEntries" EntitySet="TimesheetEntries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Timesheets_Users" Association="Self.FK_Timesheets_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Timesheets" EntitySet="Timesheets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserTasks_Projects" Association="Self.FK_UserTasks_Projects">
+            <End Role="Projects" EntitySet="Projects" />
+            <End Role="UserTasks" EntitySet="UserTasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserTasks_Users" Association="Self.FK_UserTasks_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserTasks" EntitySet="UserTasks" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Timesheet.Data" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ClientLongName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="InvoiceType" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="IsBarterClient" Type="Boolean" Nullable="false" />
+          <Property Name="DiscountPercentage" Type="Double" />
+          <Property Name="HasTimeBlock" Type="Boolean" Nullable="false" />
+          <Property Name="BarterPercentage" Type="Double" />
+          <Property Name="SalemanID" Type="Int32" />
+          <Property Name="Salesman1ID" Type="Int32" />
+          <Property Name="SalesmanPercentage" Type="Double" />
+          <Property Name="Salesman1Percentage" Type="Double" />
+          <NavigationProperty Name="ClientUserRates" Relationship="Self.FK_ClientUserRates_Clients" FromRole="Clients" ToRole="ClientUserRates" />
+          <NavigationProperty Name="Projects" Relationship="Self.FK_Projects_Clients" FromRole="Clients" ToRole="Projects" />
+        </EntityType>
+        <EntityType Name="ClientUserRate">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="UserRate" Type="Double" Nullable="false" />
+          <NavigationProperty Name="Client" Relationship="Self.FK_ClientUserRates_Clients" FromRole="ClientUserRates" ToRole="Clients" />
+          <NavigationProperty Name="User" Relationship="Self.FK_ClientUserRates_Users" FromRole="ClientUserRates" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientId" Type="Int32" />
+          <Property Name="ProjectName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PurchaseOrderNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EstimatedEffort" Type="Single" />
+          <Property Name="IsBillable" Type="Boolean" Nullable="false" />
+          <Property Name="ParentProjectId" Type="Int32" />
+          <Property Name="IsFixedPrice" Type="Boolean" />
+          <Property Name="ProjectType" Type="Int32" />
+          <Property Name="IsComplete" Type="Boolean" Nullable="false" />
+          <Property Name="BarterPercentage" Type="Double" />
+          <Property Name="FixedPriceAmount" Type="Double" />
+          <Property Name="RegularMaintenance" Type="Boolean" Nullable="false" />
+          <Property Name="IsSRED" Type="Boolean" Nullable="false" />
+          <Property Name="IsParentProject" Type="Boolean" Nullable="false" />
+          <Property Name="InternalEstimatedHours" Type="Single" />
+          <Property Name="ProjectedStartDate" Type="DateTime" Precision="3" />
+          <Property Name="ProjectedEndDate" Type="DateTime" Precision="3" />
+          <Property Name="ActualStartDate" Type="DateTime" Precision="3" />
+          <Property Name="ActualEndDate" Type="DateTime" Precision="3" />
+          <Property Name="DueDate" Type="DateTime" Precision="3" />
+          <Property Name="Priority" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="SalemanID" Type="Int32" />
+          <Property Name="Salesman1ID" Type="Int32" />
+          <Property Name="SalesmanPercentage" Type="Double" />
+          <Property Name="Salesman1Percentage" Type="Double" />
+          <NavigationProperty Name="Client" Relationship="Self.FK_Projects_Clients" FromRole="Projects" ToRole="Clients" />
+          <NavigationProperty Name="ProjectUserRates" Relationship="Self.FK_ProjectUserRates_Projects" FromRole="Projects" ToRole="ProjectUserRates" />
+          <NavigationProperty Name="TimesheetEntries" Relationship="Self.FK_TimesheetEntries_Projects" FromRole="Projects" ToRole="TimesheetEntries" />
+          <NavigationProperty Name="UserTasks" Relationship="Self.FK_UserTasks_Projects" FromRole="Projects" ToRole="UserTasks" />
+        </EntityType>
+        <EntityType Name="ProjectUserRate">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="UserRate" Type="Double" Nullable="false" />
+          <Property Name="UserPercentage" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Project" Relationship="Self.FK_ProjectUserRates_Projects" FromRole="ProjectUserRates" ToRole="Projects" />
+          <NavigationProperty Name="User" Relationship="Self.FK_ProjectUserRates_Users" FromRole="ProjectUserRates" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Salesman">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Task">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RemainingEffort" Type="Double" Nullable="false" />
+          <Property Name="IsProspect" Type="Boolean" Nullable="false" />
+          <Property Name="Priority" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TimesheetActivity">
+          <Key>
+            <PropertyRef Name="ActivityName" />
+          </Key>
+          <Property Name="ActivityName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TimesheetEntry">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TimesheetId" Type="Int32" Nullable="false" />
+          <Property Name="ClientId" Type="Int32" Nullable="false" />
+          <Property Name="ProjectId" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Sat" Type="Single" />
+          <Property Name="Sun" Type="Single" />
+          <Property Name="Mon" Type="Single" />
+          <Property Name="Tue" Type="Single" />
+          <Property Name="Wed" Type="Single" />
+          <Property Name="Thu" Type="Single" />
+          <Property Name="Fri" Type="Single" />
+          <Property Name="Billable" Type="Boolean" Nullable="false" />
+          <Property Name="SchedAfterHours" Type="Boolean" />
+          <Property Name="UnschedAfterHours" Type="Boolean" />
+          <NavigationProperty Name="Project" Relationship="Self.FK_TimesheetEntries_Projects" FromRole="TimesheetEntries" ToRole="Projects" />
+          <NavigationProperty Name="Timesheet" Relationship="Self.FK_TimesheetEntries_Timesheets" FromRole="TimesheetEntries" ToRole="Timesheets" />
+        </EntityType>
+        <EntityType Name="Timesheet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WeekStartingDate" Type="DateTime" Precision="3" />
+          <Property Name="WeekEndingDate" Type="DateTime" Precision="3" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsSubmitted" Type="Boolean" Nullable="false" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TimesheetEntries" Relationship="Self.FK_TimesheetEntries_Timesheets" FromRole="Timesheets" ToRole="TimesheetEntries" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Timesheets_Users" FromRole="Timesheets" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EmailAddress" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="LoginName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="IsAdministrator" Type="Boolean" Nullable="false" />
+          <Property Name="StandardRate" Type="Double" Nullable="false" />
+          <Property Name="HoursPerWeek" Type="Double" Nullable="false" />
+          <Property Name="PlannedBillUtilPct" Type="Double" />
+          <Property Name="IncludeUtilization" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="ClientUserRates" Relationship="Self.FK_ClientUserRates_Users" FromRole="Users" ToRole="ClientUserRates" />
+          <NavigationProperty Name="ProjectUserRates" Relationship="Self.FK_ProjectUserRates_Users" FromRole="Users" ToRole="ProjectUserRates" />
+          <NavigationProperty Name="Timesheets" Relationship="Self.FK_Timesheets_Users" FromRole="Users" ToRole="Timesheets" />
+          <NavigationProperty Name="UserTasks" Relationship="Self.FK_UserTasks_Users" FromRole="Users" ToRole="UserTasks" />
+        </EntityType>
+        <EntityType Name="UserTask">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="ProjectId" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DueDate" Type="DateTime" Precision="3" />
+          <Property Name="Priority" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Project" Relationship="Self.FK_UserTasks_Projects" FromRole="UserTasks" ToRole="Projects" />
+          <NavigationProperty Name="User" Relationship="Self.FK_UserTasks_Users" FromRole="UserTasks" ToRole="Users" />
+        </EntityType>
+        <Association Name="FK_ClientUserRates_Clients">
+          <End Role="Clients" Type="Self.Client" Multiplicity="1" />
+          <End Role="ClientUserRates" Type="Self.ClientUserRate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ClientUserRates">
+              <PropertyRef Name="ClientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Projects_Clients">
+          <End Role="Clients" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="Projects" Type="Self.Project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Projects">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClientUserRates_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="ClientUserRates" Type="Self.ClientUserRate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ClientUserRates">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjectUserRates_Projects">
+          <End Role="Projects" Type="Self.Project" Multiplicity="1" />
+          <End Role="ProjectUserRates" Type="Self.ProjectUserRate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProjectUserRates">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TimesheetEntries_Projects">
+          <End Role="Projects" Type="Self.Project" Multiplicity="1" />
+          <End Role="TimesheetEntries" Type="Self.TimesheetEntry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TimesheetEntries">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserTasks_Projects">
+          <End Role="Projects" Type="Self.Project" Multiplicity="1" />
+          <End Role="UserTasks" Type="Self.UserTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserTasks">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjectUserRates_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="ProjectUserRates" Type="Self.ProjectUserRate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProjectUserRates">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TimesheetEntries_Timesheets">
+          <End Role="Timesheets" Type="Self.Timesheet" Multiplicity="1" />
+          <End Role="TimesheetEntries" Type="Self.TimesheetEntry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Timesheets">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TimesheetEntries">
+              <PropertyRef Name="TimesheetId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Timesheets_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Timesheets" Type="Self.Timesheet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Timesheets">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserTasks_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="UserTasks" Type="Self.UserTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserTasks">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TimesheetDb" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Clients" EntityType="Self.Client" />
+          <EntitySet Name="ClientUserRates" EntityType="Self.ClientUserRate" />
+          <EntitySet Name="Projects" EntityType="Self.Project" />
+          <EntitySet Name="ProjectUserRates" EntityType="Self.ProjectUserRate" />
+          <EntitySet Name="Salesmen" EntityType="Self.Salesman" />
+          <EntitySet Name="Tasks" EntityType="Self.Task" />
+          <EntitySet Name="TimesheetActivities" EntityType="Self.TimesheetActivity" />
+          <EntitySet Name="TimesheetEntries" EntityType="Self.TimesheetEntry" />
+          <EntitySet Name="Timesheets" EntityType="Self.Timesheet" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="UserTasks" EntityType="Self.UserTask" />
+          <AssociationSet Name="FK_ClientUserRates_Clients" Association="Self.FK_ClientUserRates_Clients">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="ClientUserRates" EntitySet="ClientUserRates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Projects_Clients" Association="Self.FK_Projects_Clients">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="Projects" EntitySet="Projects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClientUserRates_Users" Association="Self.FK_ClientUserRates_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="ClientUserRates" EntitySet="ClientUserRates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectUserRates_Projects" Association="Self.FK_ProjectUserRates_Projects">
+            <End Role="Projects" EntitySet="Projects" />
+            <End Role="ProjectUserRates" EntitySet="ProjectUserRates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TimesheetEntries_Projects" Association="Self.FK_TimesheetEntries_Projects">
+            <End Role="Projects" EntitySet="Projects" />
+            <End Role="TimesheetEntries" EntitySet="TimesheetEntries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserTasks_Projects" Association="Self.FK_UserTasks_Projects">
+            <End Role="Projects" EntitySet="Projects" />
+            <End Role="UserTasks" EntitySet="UserTasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectUserRates_Users" Association="Self.FK_ProjectUserRates_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="ProjectUserRates" EntitySet="ProjectUserRates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TimesheetEntries_Timesheets" Association="Self.FK_TimesheetEntries_Timesheets">
+            <End Role="Timesheets" EntitySet="Timesheets" />
+            <End Role="TimesheetEntries" EntitySet="TimesheetEntries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Timesheets_Users" Association="Self.FK_Timesheets_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Timesheets" EntitySet="Timesheets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserTasks_Users" Association="Self.FK_UserTasks_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserTasks" EntitySet="UserTasks" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TimesheetDbStoreContainer" CdmEntityContainer="TimesheetDb">
+          <EntitySetMapping Name="Clients">
+            <EntityTypeMapping TypeName="Timesheet.Data.Client">
+              <MappingFragment StoreEntitySet="Clients">
+                <ScalarProperty Name="Id" ColumnName="clientId" />
+                <ScalarProperty Name="ClientName" ColumnName="clientName" />
+                <ScalarProperty Name="ClientLongName" ColumnName="clientLongName" />
+                <ScalarProperty Name="InvoiceType" ColumnName="invoiceType" />
+                <ScalarProperty Name="IsBarterClient" ColumnName="isBarterClient" />
+                <ScalarProperty Name="DiscountPercentage" ColumnName="discountPercentage" />
+                <ScalarProperty Name="HasTimeBlock" ColumnName="hasTimeBlock" />
+                <ScalarProperty Name="BarterPercentage" ColumnName="barterPercentage" />
+                <ScalarProperty Name="SalemanID" ColumnName="SalemanID" />
+                <ScalarProperty Name="Salesman1ID" ColumnName="salesman1ID" />
+                <ScalarProperty Name="SalesmanPercentage" ColumnName="salesmanPercentage" />
+                <ScalarProperty Name="Salesman1Percentage" ColumnName="salesman1Percentage" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ClientUserRates">
+            <EntityTypeMapping TypeName="Timesheet.Data.ClientUserRate">
+              <MappingFragment StoreEntitySet="ClientUserRates">
+                <ScalarProperty Name="Id" ColumnName="clientUserRateID" />
+                <ScalarProperty Name="ClientID" ColumnName="clientID" />
+                <ScalarProperty Name="UserID" ColumnName="userID" />
+                <ScalarProperty Name="UserRate" ColumnName="userRate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Projects">
+            <EntityTypeMapping TypeName="Timesheet.Data.Project">
+              <MappingFragment StoreEntitySet="Projects">
+                <ScalarProperty Name="Id" ColumnName="projectId" />
+                <ScalarProperty Name="ClientId" ColumnName="clientId" />
+                <ScalarProperty Name="ProjectName" ColumnName="projectName" />
+                <ScalarProperty Name="Description" ColumnName="description" />
+                <ScalarProperty Name="PurchaseOrderNumber" ColumnName="purchaseOrderNumber" />
+                <ScalarProperty Name="EstimatedEffort" ColumnName="estimatedEffort" />
+                <ScalarProperty Name="IsBillable" ColumnName="isBillable" />
+                <ScalarProperty Name="ParentProjectId" ColumnName="parentProjectId" />
+                <ScalarProperty Name="IsFixedPrice" ColumnName="isFixedPrice" />
+                <ScalarProperty Name="ProjectType" ColumnName="projectType" />
+                <ScalarProperty Name="IsComplete" ColumnName="isComplete" />
+                <ScalarProperty Name="BarterPercentage" ColumnName="barterPercentage" />
+                <ScalarProperty Name="FixedPriceAmount" ColumnName="fixedPriceAmount" />
+                <ScalarProperty Name="RegularMaintenance" ColumnName="regularMaintenance" />
+                <ScalarProperty Name="IsSRED" ColumnName="SREDable" />
+                <ScalarProperty Name="IsParentProject" ColumnName="isParentProject" />
+                <ScalarProperty Name="InternalEstimatedHours" ColumnName="internalEstimatedHours" />
+                <ScalarProperty Name="ProjectedStartDate" ColumnName="projectedStartDate" />
+                <ScalarProperty Name="ProjectedEndDate" ColumnName="projectedEndDate" />
+                <ScalarProperty Name="ActualStartDate" ColumnName="actualStartDate" />
+                <ScalarProperty Name="ActualEndDate" ColumnName="actualEndDate" />
+                <ScalarProperty Name="DueDate" ColumnName="dueDate" />
+                <ScalarProperty Name="Priority" ColumnName="priority" />
+                <ScalarProperty Name="Status" ColumnName="status" />
+                <ScalarProperty Name="SalemanID" ColumnName="SalemanID" />
+                <ScalarProperty Name="Salesman1ID" ColumnName="salesman1ID" />
+                <ScalarProperty Name="SalesmanPercentage" ColumnName="salesmanPercentage" />
+                <ScalarProperty Name="Salesman1Percentage" ColumnName="salesman1Percentage" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProjectUserRates">
+            <EntityTypeMapping TypeName="Timesheet.Data.ProjectUserRate">
+              <MappingFragment StoreEntitySet="ProjectUserRates">
+                <ScalarProperty Name="Id" ColumnName="projectUserRateID" />
+                <ScalarProperty Name="ProjectID" ColumnName="projectID" />
+                <ScalarProperty Name="UserID" ColumnName="userID" />
+                <ScalarProperty Name="UserRate" ColumnName="userRate" />
+                <ScalarProperty Name="UserPercentage" ColumnName="userPercentage" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Salesmen">
+            <EntityTypeMapping TypeName="Timesheet.Data.Salesman">
+              <MappingFragment StoreEntitySet="Salesmen">
+                <ScalarProperty Name="Id" ColumnName="salesmanId" />
+                <ScalarProperty Name="Name" ColumnName="salesmanName" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tasks">
+            <EntityTypeMapping TypeName="Timesheet.Data.Task">
+              <MappingFragment StoreEntitySet="Tasks">
+                <ScalarProperty Name="Id" ColumnName="taskId" />
+                <ScalarProperty Name="ProjectId" ColumnName="projectId" />
+                <ScalarProperty Name="UserId" ColumnName="userId" />
+                <ScalarProperty Name="Description" ColumnName="description" />
+                <ScalarProperty Name="RemainingEffort" ColumnName="remainingEffort" />
+                <ScalarProperty Name="IsProspect" ColumnName="isProspect" />
+                <ScalarProperty Name="Priority" ColumnName="priority" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TimesheetActivities">
+            <EntityTypeMapping TypeName="Timesheet.Data.TimesheetActivity">
+              <MappingFragment StoreEntitySet="TimesheetActivities">
+                <ScalarProperty Name="ActivityName" ColumnName="ActivityName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TimesheetEntries">
+            <EntityTypeMapping TypeName="Timesheet.Data.TimesheetEntry">
+              <MappingFragment StoreEntitySet="TimesheetEntries">
+                <ScalarProperty Name="Id" ColumnName="timesheetEntryId" />
+                <ScalarProperty Name="TimesheetId" ColumnName="timesheetId" />
+                <ScalarProperty Name="ClientId" ColumnName="clientId" />
+                <ScalarProperty Name="ProjectId" ColumnName="projectId" />
+                <ScalarProperty Name="Description" ColumnName="description" />
+                <ScalarProperty Name="Sat" ColumnName="sat" />
+                <ScalarProperty Name="Sun" ColumnName="sun" />
+                <ScalarProperty Name="Mon" ColumnName="mon" />
+                <ScalarProperty Name="Tue" ColumnName="tue" />
+                <ScalarProperty Name="Wed" ColumnName="wed" />
+                <ScalarProperty Name="Thu" ColumnName="thu" />
+                <ScalarProperty Name="Fri" ColumnName="fri" />
+                <ScalarProperty Name="Billable" ColumnName="billable" />
+                <ScalarProperty Name="SchedAfterHours" ColumnName="SchedAfterHours" />
+                <ScalarProperty Name="UnschedAfterHours" ColumnName="UnschedAfterHours" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Timesheets">
+            <EntityTypeMapping TypeName="Timesheet.Data.Timesheet">
+              <MappingFragment StoreEntitySet="Timesheets">
+                <ScalarProperty Name="Id" ColumnName="timesheetId" />
+                <ScalarProperty Name="WeekStartingDate" ColumnName="weekStartingDate" />
+                <ScalarProperty Name="WeekEndingDate" ColumnName="weekEndingDate" />
+                <ScalarProperty Name="UserName" ColumnName="user" />
+                <ScalarProperty Name="IsSubmitted" ColumnName="submitted" />
+                <ScalarProperty Name="UserId" ColumnName="userId" />
+                <ScalarProperty Name="Notes" ColumnName="notes" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="Timesheet.Data.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Id" ColumnName="userId" />
+                <ScalarProperty Name="FirstName" ColumnName="firstName" />
+                <ScalarProperty Name="LastName" ColumnName="lastName" />
+                <ScalarProperty Name="EmailAddress" ColumnName="emailAddress" />
+                <ScalarProperty Name="IsActive" ColumnName="isActive" />
+                <ScalarProperty Name="LoginName" ColumnName="loginName" />
+                <ScalarProperty Name="IsAdministrator" ColumnName="isAdministrator" />
+                <ScalarProperty Name="StandardRate" ColumnName="standardRate" />
+                <ScalarProperty Name="HoursPerWeek" ColumnName="hoursPerWeek" />
+                <ScalarProperty Name="PlannedBillUtilPct" ColumnName="plannedBillUtilPct" />
+                <ScalarProperty Name="IncludeUtilization" ColumnName="includeUtilization" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserTasks">
+            <EntityTypeMapping TypeName="Timesheet.Data.UserTask">
+              <MappingFragment StoreEntitySet="UserTasks">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="DueDate" ColumnName="DueDate" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

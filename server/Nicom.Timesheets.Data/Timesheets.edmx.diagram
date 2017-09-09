@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="82a176c2b43c4c8e8118c2fcfcc702b2" Name="Diagram1" ZoomLevel="98">
+        <EntityTypeShape EntityType="Timesheet.Data.Client" Width="1.5" PointX="1.5" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Timesheet.Data.ClientUserRate" Width="1.5" PointX="3" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Timesheet.Data.Project" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Timesheet.Data.ProjectUserRate" Width="1.5" PointX="3" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Timesheet.Data.Salesman" Width="1.5" PointX="9" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Timesheet.Data.Task" Width="1.5" PointX="10.75" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Timesheet.Data.TimesheetActivity" Width="1.5" PointX="5.75" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Timesheet.Data.TimesheetEntry" Width="1.5" PointX="5.25" PointY="15.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Timesheet.Data.Timesheet" Width="1.5" PointX="3" PointY="16" IsExpanded="true" />
+        <EntityTypeShape EntityType="Timesheet.Data.User" Width="1.5" PointX="0.75" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Timesheet.Data.UserTask" Width="1.5" PointX="6" PointY="10" IsExpanded="true" />
+        <AssociationConnector Association="Timesheet.Data.FK_ClientUserRates_Clients" ManuallyRouted="false" />
+        <AssociationConnector Association="Timesheet.Data.FK_Projects_Clients" ManuallyRouted="false" />
+        <AssociationConnector Association="Timesheet.Data.FK_ClientUserRates_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="Timesheet.Data.FK_ProjectUserRates_Projects" ManuallyRouted="false" />
+        <AssociationConnector Association="Timesheet.Data.FK_TimesheetEntries_Projects" ManuallyRouted="false" />
+        <AssociationConnector Association="Timesheet.Data.FK_UserTasks_Projects" ManuallyRouted="false" />
+        <AssociationConnector Association="Timesheet.Data.FK_ProjectUserRates_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="Timesheet.Data.FK_TimesheetEntries_Timesheets" ManuallyRouted="false" />
+        <AssociationConnector Association="Timesheet.Data.FK_Timesheets_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="Timesheet.Data.FK_UserTasks_Users" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
