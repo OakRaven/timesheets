@@ -1,28 +1,45 @@
 <div class="container">
-    <h3>Enter Timesheet</h3>
+    <h3>Manage Timesheets</h3>
     <p>
-        {{ vm.message }}
+        Select a timesheet from the list to view, edit, or submit your timesheet. You can also search for your timesheets using the seach options below.
     </p>
-    <table class="table table-bordered table-sm table-hover">
-        <thead class="thead-inverse">
-            <tr>
-                <th>Week Ending</th>
-                <th>Hours</th>
-                <th>Last Updated</th>
-                <th>Status</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="item in vm.recentTimesheets | orderBy: '-WeekEnding' ">
-                <td>
-                    <a ng-href="#!/timesheet-details/{{ item.WeekEnding }}">
+
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a href="#" class="nav-link active">
+            Recent and Missing Timesheets
+        </a>
+        </li>
+        <li class="nav-item">
+            <a href="#" class="nav-link">
+            Search
+        </a>
+        </li>
+    </ul>
+
+    <div class="tab-container p-3">
+        <div>
+
+            <table class="table table-bordered table-sm table-hover mb-0">
+                <thead class="thead-inverse">
+                    <tr>
+                        <th class="text-center">Week Ending</th>
+                        <th class="text-center">Total Hours</th>
+                        <th class="text-center">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in vm.recentTimesheets | orderBy: '-WeekEnding' ">
+                        <td class="text-center">
+                            <a ng-href="#!/timesheet-details/{{ item.WeekEnding }}">
                         {{ item.WeekEnding }}
                     </a>
-                </td>
-                <td>{{ item.TotalHours }}</td>
-                <td></td>
-                <td>{{ item.Status }}</td>
-            </tr>
-        </tbody>
-    </table>
+                        </td>
+                        <td class="text-center">{{ item.TotalHours }}</td>
+                        <td class="text-center">{{ item.Status }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
