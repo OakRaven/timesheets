@@ -77,24 +77,6 @@ namespace Nicom.Timesheets.Data.Repositories
             return Single(i => i.Id == id);
         }
 
-        public override void InitializeAutoMapper()
-        {
-            Mapper.Initialize(cfg =>
-                cfg.CreateMap<User, UserModel>()
-                    .ForMember(opt => opt.Timesheets, dest => dest.Ignore())
-                    .ForMember(opt => opt.ClientUserRates, dest => dest.Ignore())
-                    .ForMember(opt => opt.ProjectUserRates, dest => dest.Ignore())                    
-            );
-
-            Mapper.Initialize(cfg =>
-                cfg.CreateMap<ClientUserRate, ClientUserRateModel>()
-            );
-
-            Mapper.Initialize(cfg =>
-                cfg.CreateMap<ProjectUserRate, ProjectUserRateModel>()
-            );
-        }
-
         public override UserModel MapFromDb(User entity, string[] navigationProperties)
         {
             var item = Mapper.Map<UserModel>(entity);

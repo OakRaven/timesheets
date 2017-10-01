@@ -23,7 +23,6 @@ namespace Nicom.Timesheets.Data.Repositories
             this.navigationProperties = navigationProperties;
 
             entities = new C();
-            InitializeAutoMapper();
         }
 
         private GenericRepository()
@@ -87,9 +86,7 @@ namespace Nicom.Timesheets.Data.Repositories
 
             return query;
         }
-
-        public abstract void InitializeAutoMapper();
-
+        
         public virtual IEnumerable<E> List()
         {
             return List(new string[] { });
