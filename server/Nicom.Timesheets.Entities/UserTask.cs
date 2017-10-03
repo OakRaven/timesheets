@@ -12,7 +12,6 @@ namespace Nicom.Timesheets.Entities
     using System;
     using System.Collections.Generic;
     
-    [Serializable()]
     public partial class UserTaskModel
     {
         public int Id { get; set; }

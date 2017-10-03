@@ -83,7 +83,8 @@ namespace Nicom.Timesheets.Data.Repositories
 
             if (navigationProperties.Contains("Timesheets"))
             {
-                item.Timesheets = Mapper.Map<TimesheetModel[]>(entity.Timesheets);
+                var tenWeeksAgo = DateTime.Today.AddDays(-70);
+                item.Timesheets = Mapper.Map<TimesheetModel[]>(entity.Timesheets.Where(i=> i.WeekEndingDate >= tenWeeksAgo));
             }
 
             if (navigationProperties.Contains("ClientUserRates"))
